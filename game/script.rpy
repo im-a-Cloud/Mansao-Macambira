@@ -3,6 +3,7 @@ init python:
     explorarArvoreNatal = False
     explorarBonsai = False
     explorarMusgo = False
+
 # The script of the game goes in this file.
 
 # Declare characters used by this game. The color argument colorizes the
@@ -11,7 +12,8 @@ init python:
 define a = Character('Alex', color="#c8ffc8") #define abreviação e cores para personagem
 default menuset = set()
 # The game starts here.
-
+#image mapa1 = "mapasalaentrada.png"
+#tentar fazer a imagem do mapa aparecer
 label start:
 
     # Show a background. This uses a placeholder by default, but you can
@@ -294,18 +296,6 @@ label start:
 
     "E agora?"
 
-menu: 
-    
-    "Explorar esta área da sala":
-        call screen salaEstar
-
-    "Checar área à esquerda":
-        jump salaSaida
-
-    "Sair do jogo":
-        jump exitGame
-
- 
 screen salaEstar():
     add "Cenários/bg entrada1.png"
     imagebutton:
@@ -323,7 +313,19 @@ screen salaEstar():
         hover "Cenários/Sala/bg cactos.png"
         action Jump('cacti')
         xpos 500 ypos 0
-    
+    imagebutton:
+        idle "UI/Mover Direita.png"
+        xpos 1000 ypos 500
+        action ToggleScreen ("escritorio")
+        #trocar de tela para o escritorio, ainda tem bugs
+    imagebutton:
+        idle "UI/Mover Esquerda.png"
+        xpos 100 ypos 500
+    imagebutton:
+        xpos 1000 ypos 100
+        idle "UI/Sair Mapa.png"
+        action Jump ("exitGame")
+
 label plant:
     show alex confiante at left
     "Alex" "Aha! Comigo ninguém pode!..."
@@ -469,7 +471,6 @@ screen escritorio():
         hover "Cenários/Sala número 1/itens/bg sala1 planta morta.png"
         action Jump('plantaMorta')
         xpos 886 ypos 137
-
 
 label exitGame:
     return
